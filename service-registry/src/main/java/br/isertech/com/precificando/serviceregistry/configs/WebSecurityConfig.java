@@ -14,10 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-    @Value("${mi.serviceRegistry.username}")
+    @Value("${pr.serviceRegistry.username}")
     private String username;
 
-    @Value("${mi.serviceRegistry.password}")
+    @Value("${pr.serviceRegistry.password}")
     private String password;
 
     @Bean
@@ -27,7 +27,8 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
+//                .authenticated()
                 .and()
                 .csrf()
                 .disable()

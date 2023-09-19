@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.myinvoiceback.config.security;
+package br.isertech.com.precificando.precificandoback.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

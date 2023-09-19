@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.myinvoiceback.config.security;
+package br.isertech.com.precificando.precificandoback.config.security;
 
 import br.com.isertech.myinvoice.myinvoiceback.entity.MIUser;
 import br.com.isertech.myinvoice.myinvoiceback.constants.Messages;

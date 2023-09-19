@@ -1,11 +1,12 @@
-package br.com.isertech.myinvoice.myinvoiceback.util;
+package br.isertech.com.precificando.precificandoback.util;
 
-import br.com.isertech.myinvoice.myinvoiceback.dto.UserDTO;
-import br.com.isertech.myinvoice.myinvoiceback.entity.MIUser;
+import br.isertech.com.precificando.precificandoback.dto.UserDTO;
+import br.isertech.com.precificando.precificandoback.entity.MIUser;
 
 public class MIUserTransformer {
 
-    private MIUserTransformer() {}
+    private MIUserTransformer() {
+    }
 
     public static MIUser fromDTO(UserDTO dto) {
         return MIUser.builder()

@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.myinvoiceback.error.exception;
+package br.isertech.com.precificando.precificandoback.error.exception;
 
 import java.io.Serial;
 

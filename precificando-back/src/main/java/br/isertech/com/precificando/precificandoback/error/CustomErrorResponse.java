@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.myinvoiceback.error;
+package br.isertech.com.precificando.precificandoback.error;
 
 import lombok.Builder;
 import lombok.Data;

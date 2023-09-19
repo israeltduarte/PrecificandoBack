@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.myinvoiceback.config.security;
+package br.isertech.com.precificando.precificandoback.config.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

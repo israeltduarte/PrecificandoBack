@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.myinvoiceback.util;
+package br.isertech.com.precificando.precificandoback.util;
 
 import org.hibernate.engine.config.spi.ConfigurationService;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

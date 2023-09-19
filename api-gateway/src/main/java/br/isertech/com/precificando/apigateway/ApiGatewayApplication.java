@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.apigateway;
+package br.isertech.com.precificando.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

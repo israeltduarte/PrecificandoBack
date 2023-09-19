@@ -3,16 +3,16 @@ server:
 
 spring:
   application:
-    name: mi-api-gateway
+    name: pr-api-gateway
   cloud:
     gateway:
       routes:
-        - id: mi-myinvoice-back
-          uri: lb://MI-MYINVOICE-BACK
+        - id: pr-precificando-back
+          uri: lb://PR-PRECIFICANDO-BACK
           predicates:
-            - Path=/mi-myinvoice-back/**
+            - Path=/pr-precificando-back/**
 
-mi:
+pr:
   serviceRegistry:
     username: serviceregistry
     password: vento123
@@ -20,7 +20,7 @@ mi:
 eureka:
   client:
     service-url:
-      defaultZone: 'http://${mi.serviceRegistry.username}:${mi.serviceRegistry.password}@localhost:8761/eureka'
+      defaultZone: 'http://${pr.serviceRegistry.username}:${pr.serviceRegistry.password}@localhost:8761/eureka'
     enabled: true
   instance:
     hostname: localhost

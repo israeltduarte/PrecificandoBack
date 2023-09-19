@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.apigateway;
+package br.isertech.com.precificando.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

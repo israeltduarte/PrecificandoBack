@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.serviceregistry.configs;
+package br.isertech.com.precificando.serviceregistry.configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

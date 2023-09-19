@@ -1,4 +1,4 @@
-package br.com.isertech.myinvoice.serviceregistry;
+package br.isertech.com.precificando.serviceregistry;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mi-api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: mi-myinvoice-back
+          uri: lb://MI-MYINVOICE-BACK
+          predicates:
+            - Path=/mi-myinvoice-back/**
+
+mi:
+  serviceRegistry:
+    username: serviceregistry
+    password: vento123
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://${mi.serviceRegistry.username}:${mi.serviceRegistry.password}@localhost:8761/eureka'
+    enabled: true
+  instance:
+    hostname: localhost

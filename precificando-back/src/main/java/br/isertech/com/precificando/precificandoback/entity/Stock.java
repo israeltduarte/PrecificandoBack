@@ -34,23 +34,12 @@ public class Stock extends RepresentationModel<Stock> implements Serializable {
             parameters = @Parameter(name = "prefix", value = "Item")
     )
     private String id;
-    private String name;
-    private String lastName;
-    private String email;
-    @Column(unique = true)
-    private String username;
-    @JsonIgnore
-    private String password;
     private LocalDateTime created;
     private LocalDateTime updated;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "USERS_ROLES",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<Role> roles;
+    @OneToOne
+    private ITUser user;
+    @OneToMany(mappedBy = "stock", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Item> items;
 
 }
 

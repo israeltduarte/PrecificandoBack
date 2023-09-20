@@ -1,8 +1,8 @@
 package br.isertech.com.precificando.precificandoback.config.security;
 
-import br.com.isertech.myinvoice.myinvoiceback.entity.MIUser;
-import br.com.isertech.myinvoice.myinvoiceback.constants.Messages;
-import br.com.isertech.myinvoice.myinvoiceback.repository.UserRepository;
+import br.isertech.com.precificando.precificandoback.constants.Messages;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
+import br.isertech.com.precificando.precificandoback.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserById(String id) throws UsernameNotFoundException {
 
-        MIUser user = userRepository.findById(id)
+        ITUser user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND_INFO));
 
         return UserDetailsImpl.build(user);
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        MIUser user = userRepository.findByUsername(username)
+        ITUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND_INFO.concat(". username: " + username)));
 
         return UserDetailsImpl.build(user);

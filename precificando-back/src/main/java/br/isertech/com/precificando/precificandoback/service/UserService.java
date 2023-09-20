@@ -2,11 +2,11 @@ package br.isertech.com.precificando.precificandoback.service;
 
 import br.isertech.com.precificando.precificandoback.constants.Messages;
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
-import br.isertech.com.precificando.precificandoback.entity.MIUser;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.entity.Role;
 import br.isertech.com.precificando.precificandoback.error.exception.UserNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.UserRepository;
-import br.isertech.com.precificando.precificandoback.util.MIUserTransformer;
+import br.isertech.com.precificando.precificandoback.util.ITUserTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,30 +32,30 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Page<MIUser> getAllUsers(Pageable pageable) {
+    public List<ITUser> getAllUsers() {
 
-        Page<MIUser> users = userRepository.findAll(pageable);
-        log.info("UserService - getAllUsers() - Page<MIUser>={}", users);
+        List<ITUser> users = userRepository.findAll();
+        log.info("UserService - getAllUsers() - List<ITUser>={}", users);
 
         return users;
     }
 
-    public MIUser addUser(UserDTO userDTO) {
+    public ITUser addUser(UserDTO userDTO) {
 
-        MIUser user = getNewUserEntityReady(userDTO);
+        ITUser user = getNewUserEntityReady(userDTO);
         user = userRepository.save(user);
-        log.info("UserService - addUser() - MIUser = {}", user);
+        log.info("UserService - addUser() - ITUser = {}", user);
 
         return user;
     }
 
-    private MIUser getNewUserEntityReady(UserDTO userDTO) {
+    private ITUser getNewUserEntityReady(UserDTO userDTO) {
 
         LocalDateTime time = LocalDateTime.now();
         List<Role> roles = roleService.checkAndGetRoles(userDTO.getRoles());
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-        MIUser user = MIUserTransformer.fromDTO(userDTO);
+        ITUser user = ITUserTransformer.fromDTO(userDTO);
         user.setCreated(time);
         user.setUpdated(time);
         user.setRoles(roles);
@@ -63,9 +63,9 @@ public class UserService {
         return user;
     }
 
-    public MIUser getUserById(String userId) {
+    public ITUser getUserById(String userId) {
 
-        MIUser user = userRepository.findById(userId)
+        ITUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
         log.info("UserService - getUserById() - UserDTO={}", user);
 
@@ -88,14 +88,14 @@ public class UserService {
         return exists;
     }
 
-    public MIUser updateUserById(UserDTO userDTO, String userId) {
+    public ITUser updateUserById(UserDTO userDTO, String userId) {
 
-        MIUser user = userRepository.findById(userId)
+        ITUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
 
         List<Role> roles;
 
-        user = MIUserTransformer.fromDTO(user, userDTO);
+        user = ITUserTransformer.fromDTO(user, userDTO);
 
         if (null != userDTO.getRoles() && !userDTO.getRoles().isEmpty()) {
             roles = roleService.checkAndGetRoles(userDTO.getRoles());
@@ -103,14 +103,14 @@ public class UserService {
         }
 
         user = userRepository.save(user);
-        log.info("UserService - updateUserById() - MIUser={}", user);
+        log.info("UserService - updateUserById() - ITUser={}", user);
 
         return user;
     }
 
     public void deleteUserById(String userId) {
 
-        MIUser user = userRepository.findById(userId)
+        ITUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
 
         userRepository.delete(user);

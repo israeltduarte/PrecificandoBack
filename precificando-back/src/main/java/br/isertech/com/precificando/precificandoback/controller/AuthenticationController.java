@@ -5,7 +5,7 @@ import br.isertech.com.precificando.precificandoback.constants.Messages;
 import br.isertech.com.precificando.precificandoback.dto.JwtDTO;
 import br.isertech.com.precificando.precificandoback.dto.LoginDTO;
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
-import br.isertech.com.precificando.precificandoback.entity.MIUser;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.error.exception.EmailAlreadyExistsException;
 import br.isertech.com.precificando.precificandoback.error.exception.UserAlreadyExistsException;
 import br.isertech.com.precificando.precificandoback.service.RoleService;
@@ -51,7 +51,7 @@ public class AuthenticationController {
         if (userService.existsByEmail(dto.getEmail())) {
             throw new EmailAlreadyExistsException(Messages.EMAIL_ALREADY_EXISTS);
         }
-        MIUser user = userService.addUser(dto);
+        ITUser user = userService.addUser(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }

@@ -1,16 +1,16 @@
 package br.isertech.com.precificando.precificandoback.controller;
 
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
-import br.isertech.com.precificando.precificandoback.entity.MIUser;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -25,11 +25,11 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public ResponseEntity<Page<MIUser>> getAllUsers(Pageable pageable) {
+    public ResponseEntity<List<ITUser>> getAllUsers() {
 
-        Page<MIUser> users = userService.getAllUsers(pageable);
+        List<ITUser> users = userService.getAllUsers();
         if (!users.isEmpty()) {
-            for (MIUser user : users.toList()) {
+            for (ITUser user : users) {
                 user.add(linkTo(methodOn(UserController.class).getUserById(user.getId())).withSelfRel());
             }
         }
@@ -39,17 +39,17 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    public ResponseEntity<MIUser> getUserById(@PathVariable String id) {
+    public ResponseEntity<ITUser> getUserById(@PathVariable String id) {
 
-        MIUser user = userService.getUserById(id);
+        ITUser user = userService.getUserById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MIUser> updateUserById(@Valid @RequestBody UserDTO dto, @PathVariable String id) {
+    public ResponseEntity<ITUser> updateUserById(@Valid @RequestBody UserDTO dto, @PathVariable String id) {
 
-        MIUser user = userService.updateUserById(dto, id);
+        ITUser user = userService.updateUserById(dto, id);
 
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }

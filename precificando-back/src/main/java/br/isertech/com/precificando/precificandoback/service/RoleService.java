@@ -22,21 +22,6 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Role findByRoleName(String roleName) {
-
-        RoleType roleType;
-        try {
-            roleType = RoleType.valueOf(roleName);
-        } catch (Exception e) {
-            throw new RoleNotFoundException(Messages.ROLE_NOT_FOUND_INFO.concat(roleName));
-        }
-        Role role = roleRepository.findByRoleName(roleType)
-                .orElseThrow(() -> new RoleNotFoundException(Messages.ROLE_NOT_FOUND_INFO));
-        log.info("RoleService - findByRoleName() - Role={}", role);
-
-        return role;
-    }
-
     public List<Role> getAllRoles() {
 
         List<Role> roles = roleRepository.findAll();
@@ -62,6 +47,21 @@ public class RoleService {
             throw new OperationFailedException(Messages.OPERATION_FAILED);
         }
         log.info("RoleService - registerRole() - Role={}", role);
+
+        return role;
+    }
+
+    public Role findByRoleName(String roleName) {
+
+        RoleType roleType;
+        try {
+            roleType = RoleType.valueOf(roleName);
+        } catch (Exception e) {
+            throw new RoleNotFoundException(Messages.ROLE_NOT_FOUND_INFO.concat(roleName));
+        }
+        Role role = roleRepository.findByRoleName(roleType)
+                .orElseThrow(() -> new RoleNotFoundException(Messages.ROLE_NOT_FOUND_INFO));
+        log.info("RoleService - findByRoleName() - Role={}", role);
 
         return role;
     }

@@ -1,15 +1,15 @@
 package br.isertech.com.precificando.precificandoback.util;
 
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
-import br.isertech.com.precificando.precificandoback.entity.MIUser;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 
-public class MIUserTransformer {
+public class ITUserTransformer {
 
-    private MIUserTransformer() {
+    private ITUserTransformer() {
     }
 
-    public static MIUser fromDTO(UserDTO dto) {
-        return MIUser.builder()
+    public static ITUser fromDTO(UserDTO dto) {
+        return ITUser.builder()
                 .name(dto.getName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
@@ -18,8 +18,8 @@ public class MIUserTransformer {
                 .build();
     }
 
-    public static MIUser fromDTO(MIUser user, UserDTO dto) {
-        MIUser updatedUser = fromDTO(dto);
+    public static ITUser fromDTO(ITUser user, UserDTO dto) {
+        ITUser updatedUser = fromDTO(dto);
         updatedUser.setId(user.getId());
 
         return updatedUser;

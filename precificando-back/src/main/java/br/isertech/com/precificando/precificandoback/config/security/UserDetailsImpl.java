@@ -1,6 +1,6 @@
 package br.isertech.com.precificando.precificandoback.config.security;
 
-import br.com.isertech.myinvoice.myinvoiceback.entity.MIUser;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static UserDetailsImpl build(MIUser user) {
+    public static UserDetailsImpl build(ITUser user) {
 
         List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getAuthority()))

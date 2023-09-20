@@ -21,17 +21,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MIUser extends RepresentationModel<MIUser> implements Serializable {
+public class ITUser extends RepresentationModel<ITUser> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "miuser-uuid-generator")
+    @GeneratedValue(generator = "ituser-uuid-generator")
     @GenericGenerator(
-            name = "miuser-uuid-generator",
+            name = "ituser-uuid-generator",
             strategy = "br.isertech.com.precificando.precificandoback.util.IserUUIDGenerator",
-            parameters = @Parameter(name = "prefix", value = "MIUser")
+            parameters = @Parameter(name = "prefix", value = "ITUser")
     )
     private String id;
     private String name;
@@ -51,6 +51,8 @@ public class MIUser extends RepresentationModel<MIUser> implements Serializable 
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+    @OneToOne
+    private Stock stock;
 
 }
 

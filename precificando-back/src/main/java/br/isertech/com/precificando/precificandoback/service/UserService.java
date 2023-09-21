@@ -9,8 +9,6 @@ import br.isertech.com.precificando.precificandoback.repository.UserRepository;
 import br.isertech.com.precificando.precificandoback.util.ITUserTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,11 +112,11 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
 
         userRepository.delete(user);
-
         log.info("UserService - deleteUserById() - ".concat(Messages.USER_DELETED));
     }
 
     public void deleteAllUsers() {
+
         userRepository.deleteAll();
         log.info("UserService - deleteAllUsers() - ".concat(Messages.USERS_DELETED));
     }

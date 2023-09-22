@@ -6,17 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StockDTO {
+public class ItemDTO {
 
-    private String userId;
+    private String description;
+    private String measurement;
+    private String stockId;
     private LocalDateTime created;
     private LocalDateTime updated;
-    private List<ItemDTO> items;
+    private boolean isInStock;
 
 }

@@ -7,8 +7,8 @@ import br.isertech.com.precificando.precificandoback.entity.Role;
 import br.isertech.com.precificando.precificandoback.error.exception.UserNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.UserRepository;
 import br.isertech.com.precificando.precificandoback.util.ITUserTransformer;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,16 +19,12 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     public List<ITUser> getAllUsers() {
 

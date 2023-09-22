@@ -7,7 +7,10 @@ public class StockTransformer {
 
     public static Stock fromDTO(StockDTO dto) {
 
-        return null;
+        return Stock.builder()
+                .created(dto.getCreated())
+                .updated(dto.getUpdated())
+                .build();
     }
 
 }

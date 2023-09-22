@@ -8,8 +8,8 @@ import br.isertech.com.precificando.precificandoback.error.exception.OperationFa
 import br.isertech.com.precificando.precificandoback.error.exception.RoleAlreadyExistsException;
 import br.isertech.com.precificando.precificandoback.error.exception.RoleNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.RoleRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +17,10 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     public List<Role> getAllRoles() {
 

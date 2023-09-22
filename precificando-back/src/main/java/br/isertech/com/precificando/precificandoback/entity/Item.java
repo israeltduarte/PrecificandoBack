@@ -39,6 +39,7 @@ public class Item extends RepresentationModel<Item> implements Serializable {
     private String measurement;
     private LocalDateTime created;
     private LocalDateTime updated;
+    private boolean isInStock;
     @ManyToOne
     @JsonBackReference
     private Stock stock;

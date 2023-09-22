@@ -3,23 +3,25 @@ package br.isertech.com.precificando.precificandoback.service;
 import br.isertech.com.precificando.precificandoback.constants.Messages;
 import br.isertech.com.precificando.precificandoback.dto.StockDTO;
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.entity.Stock;
 import br.isertech.com.precificando.precificandoback.error.exception.StockNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.StockRepository;
 import br.isertech.com.precificando.precificandoback.util.StockTransformer;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class StockService {
 
-    @Autowired
-    private StockRepository stockRepository;
-
+    private final StockRepository stockRepository;
+    private final UserService userService;
 
     public List<Stock> getAllStocks() {
 
@@ -29,13 +31,28 @@ public class StockService {
         return stocks;
     }
 
-    public Stock addStock(StockDTO dto, String userId) {
+    public Stock addStock(StockDTO dto) {
+
+        ITUser user = userService.getUserById(dto.getUserId());
+        Stock stock = getStockEntityReady(dto, user);
+        stock = stockRepository.save(stock);
+        log.info("StockService - addStock() - Stock={}", stock);
+
+        return stock;
+    }
+
+    private Stock getStockEntityReady(StockDTO dto, ITUser user) {
+
+        dto.getItems().forEach(item -> {
+            //TODO add each item
+        });
+
+        LocalDateTime now = LocalDateTime.now();
 
         Stock stock = StockTransformer.fromDTO(dto);
-
-        stock = stockRepository.save(stock);
-
-        log.info("StockService - addStock() - Stock = {}", stock);
+        stock.setUser(user);
+        stock.setCreated(now);
+        stock.setUpdated(now);
 
         return stock;
     }
@@ -64,7 +81,7 @@ public class StockService {
         stockRepository.findById(id)
                 .orElseThrow(() -> new StockNotFoundException(Messages.STOCK_NOT_FOUND_INFO));
         stockRepository.deleteById(id);
-        log.info("StockService - deleteStockById() - ".concat(Messages.USER_DELETED));
+        log.info("StockService - deleteStockById() - ".concat(Messages.STOCK_DELETED));
     }
 
     public void deleteAllStocks() {

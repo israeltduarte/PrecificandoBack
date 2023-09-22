@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @Builder
 public class ItemDTO {
 
+    private String stockId;
     private String description;
     private String measurement;
-    private String stockId;
     private LocalDateTime created;
     private LocalDateTime updated;
     private boolean isInStock;

@@ -1,5 +1,6 @@
 package br.isertech.com.precificando.precificandoback.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,7 @@ public class Stock extends RepresentationModel<Stock> implements Serializable {
     @GenericGenerator(
             name = "ituser-uuid-generator",
             strategy = "br.isertech.com.precificando.precificandoback.util.IserUUIDGenerator",
-            parameters = @Parameter(name = "prefix", value = "Item")
+            parameters = @Parameter(name = "prefix", value = "Stock")
     )
     private String id;
     private LocalDateTime created;
@@ -37,6 +38,7 @@ public class Stock extends RepresentationModel<Stock> implements Serializable {
     @OneToOne
     private ITUser user;
     @OneToMany(mappedBy = "stock", orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Item> items;
 
 }

@@ -15,8 +15,8 @@ import java.util.List;
 public class StockDTO {
 
     private String userId;
+    private List<ItemDTO> items;
     private LocalDateTime created;
     private LocalDateTime updated;
-    private List<ItemDTO> items;
 
 }

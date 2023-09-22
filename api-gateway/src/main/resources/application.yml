@@ -3,14 +3,14 @@ server:
 
 spring:
   application:
-    name: pr-api-gateway
+    name: api-gateway
   cloud:
     gateway:
       routes:
-        - id: pr-precificando-back
-          uri: lb://PR-PRECIFICANDO-BACK
+        - id: precificando-back
+          uri: lb://PRECIFICANDO-BACK
           predicates:
-            - Path=/pr-precificando-back/**
+            - Path=/precificando-back/**
 
 pr:
   serviceRegistry:

@@ -19,8 +19,41 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 //        return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> userNotFound(Exception e) {
+
+        CustomErrorResponse errors = CustomErrorResponse.builder()
+                .message(e.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .build();
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(RoleNotFoundException.class)
     public ResponseEntity<CustomErrorResponse> roleNotFound(Exception e) {
+
+        CustomErrorResponse errors = CustomErrorResponse.builder()
+                .message(e.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .build();
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(StockNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> stockNotFound(Exception e) {
+
+        CustomErrorResponse errors = CustomErrorResponse.builder()
+                .message(e.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .build();
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> itemNotFound(Exception e) {
 
         CustomErrorResponse errors = CustomErrorResponse.builder()
                 .message(e.getMessage())

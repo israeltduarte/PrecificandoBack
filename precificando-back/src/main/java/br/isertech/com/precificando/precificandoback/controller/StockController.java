@@ -1,5 +1,6 @@
 package br.isertech.com.precificando.precificandoback.controller;
 
+import br.isertech.com.precificando.precificandoback.dto.StockDTO;
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
 import br.isertech.com.precificando.precificandoback.entity.Stock;
 import br.isertech.com.precificando.precificandoback.service.StockService;
@@ -40,6 +41,13 @@ public class StockController {
 
         Stock stock = stockService.getStockById(id);
         return ResponseEntity.status(HttpStatus.OK).body(stock);
+    }
+
+    @PostMapping
+    public ResponseEntity<Stock> addStock(@Valid @RequestBody StockDTO dto) {
+
+        Stock stock = stockService.addStock(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(stock);
     }
 
     @PutMapping("/{id}")

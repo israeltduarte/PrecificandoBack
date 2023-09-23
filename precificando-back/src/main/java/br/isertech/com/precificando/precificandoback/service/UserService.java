@@ -18,8 +18,8 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;

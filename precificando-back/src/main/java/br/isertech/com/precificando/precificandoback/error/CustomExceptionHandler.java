@@ -41,17 +41,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(StockNotFoundException.class)
-    public ResponseEntity<CustomErrorResponse> stockNotFound(Exception e) {
-
-        CustomErrorResponse errors = CustomErrorResponse.builder()
-                .message(e.getMessage())
-                .status(HttpStatus.NOT_FOUND.value())
-                .build();
-
-        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<CustomErrorResponse> itemNotFound(Exception e) {
 

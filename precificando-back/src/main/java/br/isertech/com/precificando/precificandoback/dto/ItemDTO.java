@@ -1,23 +1,21 @@
 package br.isertech.com.precificando.precificandoback.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ItemDTO {
 
-    private String stockId;
     private String description;
     private String measurement;
     private LocalDateTime created;
     private LocalDateTime updated;
     private boolean isInStock;
+    private String userId;
 
 }

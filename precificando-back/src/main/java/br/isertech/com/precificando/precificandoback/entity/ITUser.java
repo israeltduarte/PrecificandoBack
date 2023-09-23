@@ -1,13 +1,9 @@
 package br.isertech.com.precificando.precificandoback.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.hateoas.RepresentationModel;
@@ -17,11 +13,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "roles")
 public class ITUser extends RepresentationModel<ITUser> implements Serializable {
 
     @Serial
@@ -45,16 +43,16 @@ public class ITUser extends RepresentationModel<ITUser> implements Serializable 
     private LocalDateTime created;
     private LocalDateTime updated;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnore
     private List<Role> roles;
-    @OneToOne
-    @JsonBackReference
-    private Stock stock;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Item> items;
 
 }
 

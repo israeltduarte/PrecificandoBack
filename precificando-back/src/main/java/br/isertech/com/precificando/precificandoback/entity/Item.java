@@ -1,14 +1,8 @@
 package br.isertech.com.precificando.precificandoback.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.hateoas.RepresentationModel;
@@ -17,11 +11,13 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "user")
 public class Item extends RepresentationModel<Item> implements Serializable {
 
     @Serial
@@ -40,8 +36,11 @@ public class Item extends RepresentationModel<Item> implements Serializable {
     private LocalDateTime created;
     private LocalDateTime updated;
     private boolean isInStock;
-    @ManyToOne
-    @JsonBackReference
-    private Stock stock;
+
+    @ManyToOne(targetEntity = ITUser.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "USER_ID")
+    @JsonIgnore
+    private ITUser user;
+
 }
 

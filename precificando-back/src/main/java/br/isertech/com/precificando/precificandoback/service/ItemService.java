@@ -2,14 +2,15 @@ package br.isertech.com.precificando.precificandoback.service;
 
 import br.isertech.com.precificando.precificandoback.constants.Messages;
 import br.isertech.com.precificando.precificandoback.dto.ItemDTO;
+import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.entity.Item;
-import br.isertech.com.precificando.precificandoback.entity.Stock;
 import br.isertech.com.precificando.precificandoback.error.exception.ItemNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.ItemRepository;
 import br.isertech.com.precificando.precificandoback.util.ItemTransformer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,10 +18,12 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final StockService stockService;
+    private final UserService userService;
+//    private final StockService stockService;
 
     public List<Item> getAllItems() {
 
@@ -32,20 +35,20 @@ public class ItemService {
 
     public Item addItem(ItemDTO dto) {
 
-        Item item = getItemEntityReady(dto);
+        ITUser user = userService.getUserById(dto.getUserId());
+
+        Item item = getItemEntityReady(dto, user);
         item = itemRepository.save(item);
         log.info("ItemService - addItem() - Item={}", item);
 
         return item;
     }
 
-    private Item getItemEntityReady(ItemDTO dto) {
-
-        Stock stock = stockService.getStockById(dto.getStockId());
+    private Item getItemEntityReady(ItemDTO dto, ITUser user) {
 
         LocalDateTime now = LocalDateTime.now();
         Item item = ItemTransformer.fromDTO(dto);
-        item.setStock(stock);
+        item.setUser(user);
         item.setCreated(now);
         item.setUpdated(now);
 

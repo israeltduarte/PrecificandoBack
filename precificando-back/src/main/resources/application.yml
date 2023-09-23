@@ -20,7 +20,7 @@ spring:
   jpa:
     database: POSTGRESQL
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       jdbc:
         lob.non-contextual-creation: true
     properties:

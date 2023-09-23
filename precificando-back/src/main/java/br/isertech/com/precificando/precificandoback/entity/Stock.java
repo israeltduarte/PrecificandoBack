@@ -2,10 +2,7 @@ package br.isertech.com.precificando.precificandoback.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.hateoas.RepresentationModel;
@@ -15,9 +12,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
 @Entity
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Stock extends RepresentationModel<Stock> implements Serializable {
@@ -36,8 +34,9 @@ public class Stock extends RepresentationModel<Stock> implements Serializable {
     private LocalDateTime created;
     private LocalDateTime updated;
     @OneToOne
+    @JsonBackReference
     private ITUser user;
-    @OneToMany(mappedBy = "stock", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "stock", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Item> items;
 

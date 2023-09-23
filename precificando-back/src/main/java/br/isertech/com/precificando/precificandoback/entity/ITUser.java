@@ -1,5 +1,6 @@
 package br.isertech.com.precificando.precificandoback.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -52,6 +53,7 @@ public class ITUser extends RepresentationModel<ITUser> implements Serializable 
     )
     private List<Role> roles;
     @OneToOne
+    @JsonBackReference
     private Stock stock;
 
 }

@@ -4,15 +4,18 @@ import br.isertech.com.precificando.precificandoback.constants.Messages;
 import br.isertech.com.precificando.precificandoback.dto.StockDTO;
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
 import br.isertech.com.precificando.precificandoback.entity.ITUser;
+import br.isertech.com.precificando.precificandoback.entity.Item;
 import br.isertech.com.precificando.precificandoback.entity.Stock;
 import br.isertech.com.precificando.precificandoback.error.exception.StockNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.StockRepository;
+import br.isertech.com.precificando.precificandoback.util.ItemTransformer;
 import br.isertech.com.precificando.precificandoback.util.StockTransformer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -43,13 +46,20 @@ public class StockService {
 
     private Stock getStockEntityReady(StockDTO dto, ITUser user) {
 
-        dto.getItems().forEach(item -> {
-            //TODO add each item
-        });
+        List<Item> items = new ArrayList<>();
 
         LocalDateTime now = LocalDateTime.now();
-
         Stock stock = StockTransformer.fromDTO(dto);
+
+        dto.getItems().forEach(itemDTO -> {
+            Item item = ItemTransformer.fromDTO(itemDTO);
+            item.setCreated(now);
+            item.setUpdated(now);
+            item.setStock(stock);
+            items.add(item);
+        });
+
+        stock.setItems(items);
         stock.setUser(user);
         stock.setCreated(now);
         stock.setUpdated(now);

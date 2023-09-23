@@ -5,6 +5,9 @@ import br.isertech.com.precificando.precificandoback.entity.Stock;
 
 public class StockTransformer {
 
+    private StockTransformer() {
+    }
+
     public static Stock fromDTO(StockDTO dto) {
 
         return Stock.builder()

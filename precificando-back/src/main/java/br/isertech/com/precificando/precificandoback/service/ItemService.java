@@ -23,11 +23,11 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
     private final UserService userService;
-//    private final StockService stockService;
 
     public List<Item> getAllItems() {
 
         List<Item> items = itemRepository.findAll();
+
         log.info("ItemService - getAllItems() - List<Item>={}", items);
 
         return items;
@@ -36,9 +36,9 @@ public class ItemService {
     public Item addItem(ItemDTO dto) {
 
         ITUser user = userService.getUserById(dto.getUserId());
-
         Item item = getItemEntityReady(dto, user);
         item = itemRepository.save(item);
+
         log.info("ItemService - addItem() - Item={}", item);
 
         return item;
@@ -59,6 +59,7 @@ public class ItemService {
 
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(Messages.ITEM_NOT_FOUND_INFO));
+
         log.info("ItemService - getItemById() - Item={}", item);
 
         return item;
@@ -83,9 +84,9 @@ public class ItemService {
 
     public void deleteItemById(String id) {
 
-        itemRepository.findById(id)
+        Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(Messages.ITEM_NOT_FOUND_INFO));
-        itemRepository.deleteById(id);
+        itemRepository.delete(item);
 
         log.info("ItemService - deleteItemById() - ".concat(Messages.ITEM_DELETED));
     }

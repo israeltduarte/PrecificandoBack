@@ -29,6 +29,7 @@ public class UserService {
     public List<ITUser> getAllUsers() {
 
         List<ITUser> users = userRepository.findAll();
+
         log.info("UserService - getAllUsers() - List<ITUser>={}", users);
 
         return users;
@@ -38,7 +39,8 @@ public class UserService {
 
         ITUser user = getNewUserEntityReady(userDTO);
         user = userRepository.save(user);
-        log.info("UserService - addUser() - ITUser = {}", user);
+
+        log.info("UserService - addUser() - ITUser={}", user);
 
         return user;
     }
@@ -61,7 +63,8 @@ public class UserService {
 
         ITUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
-        log.info("UserService - getUserById() - UserDTO={}", user);
+
+        log.info("UserService - getUserById() - ITUser={}", user);
 
         return user;
     }
@@ -69,6 +72,7 @@ public class UserService {
     public boolean existsByUsername(String username) {
 
         boolean exists = userRepository.findByUsername(username).isPresent();
+
         log.warn("UserService - existsByUsername() - " + Messages.USERNAME_ALREADY_EXISTS);
 
         return exists;
@@ -77,6 +81,7 @@ public class UserService {
     public boolean existsByEmail(String email) {
 
         boolean exists = userRepository.findByEmail(email).isPresent();
+
         log.warn("UserService - existsByEmail() - " + Messages.EMAIL_ALREADY_EXISTS);
 
         return exists;
@@ -88,15 +93,13 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
 
         List<Role> roles;
-
         user = ITUserTransformer.fromDTO(user, userDTO);
-
         if (null != userDTO.getRoles() && !userDTO.getRoles().isEmpty()) {
             roles = roleService.checkAndGetRoles(userDTO.getRoles());
             user.setRoles(roles);
         }
-
         user = userRepository.save(user);
+
         log.info("UserService - updateUserById() - ITUser={}", user);
 
         return user;
@@ -106,14 +109,15 @@ public class UserService {
 
         ITUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
-
         userRepository.delete(user);
+
         log.info("UserService - deleteUserById() - ".concat(Messages.USER_DELETED));
     }
 
     public void deleteAllUsers() {
 
         userRepository.deleteAll();
+
         log.info("UserService - deleteAllUsers() - ".concat(Messages.USERS_DELETED));
     }
 

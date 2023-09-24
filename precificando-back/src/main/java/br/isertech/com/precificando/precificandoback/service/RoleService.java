@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,12 +35,18 @@ public class RoleService {
 
     public Role registerRole(RoleDTO roleDTO) {
 
-        log.info("RoleService - registerRole() - RoleDTO={}", roleDTO);
-        Role role = Role.builder()
+        RoleType roleName = RoleType.valueOf(roleDTO.getRoleName());
+
+        Optional<Role> role = roleRepository.findByRoleName(roleName);
+        if (role.isPresent()) {
+            throw new RoleAlreadyExistsException(Messages.ROLE_ALREADY_EXISTS);
+        }
+
+        Role newRole = Role.builder()
                 .roleName(RoleType.valueOf(roleDTO.getRoleName()))
                 .build();
         try {
-            role = roleRepository.save(role);
+            newRole = roleRepository.save(newRole);
         } catch (DataIntegrityViolationException e) {
             String message = Messages.ROLE_ALREADY_EXISTS.concat(". RoleType = " + roleDTO.getRoleName());
             log.error(message);
@@ -48,9 +55,9 @@ public class RoleService {
             log.error(Messages.OPERATION_FAILED);
             throw new OperationFailedException(Messages.OPERATION_FAILED);
         }
-        log.info("RoleService - registerRole() - Role={}", role);
+        log.info("RoleService - registerRole() - Role={}", newRole);
 
-        return role;
+        return newRole;
     }
 
     public Role findByRoleName(String roleName) {

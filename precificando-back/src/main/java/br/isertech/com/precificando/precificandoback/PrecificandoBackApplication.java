@@ -9,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PrecificandoBackApplication implements CommandLineRunner {
@@ -21,11 +24,16 @@ public class PrecificandoBackApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        Role user = Role.builder()
-                .roleName(RoleType.ROLE_USER)
-                .build();
+    public void run(String... args) {
 
-        roleRepository.save(user);
+        List<Role> roles = new ArrayList<>();
+        roles.add(Role.builder()
+                .roleName(RoleType.ROLE_USER)
+                .build());
+        roles.add(Role.builder()
+                .roleName(RoleType.ROLE_ADMIN)
+                .build());
+
+        roleRepository.saveAll(roles);
     }
 }

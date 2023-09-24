@@ -46,8 +46,8 @@ public class ITUser extends RepresentationModel<ITUser> implements Serializable 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USERS_ROLES",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     @JsonIgnore
     private List<Role> roles;

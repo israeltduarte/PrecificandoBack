@@ -27,6 +27,7 @@ public class PrecificandoBackApplication implements CommandLineRunner {
     public void run(String... args) {
 
         List<Role> roles = new ArrayList<>();
+
         roles.add(Role.builder()
                 .roleName(RoleType.ROLE_USER)
                 .build());

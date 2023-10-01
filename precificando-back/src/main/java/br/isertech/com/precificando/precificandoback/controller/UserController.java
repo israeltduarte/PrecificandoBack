@@ -5,7 +5,7 @@ import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.entity.Item;
 import br.isertech.com.precificando.precificandoback.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,10 +19,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

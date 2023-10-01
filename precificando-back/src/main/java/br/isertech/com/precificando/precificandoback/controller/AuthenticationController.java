@@ -8,39 +8,27 @@ import br.isertech.com.precificando.precificandoback.dto.UserDTO;
 import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.error.exception.EmailAlreadyExistsException;
 import br.isertech.com.precificando.precificandoback.error.exception.UserAlreadyExistsException;
-import br.isertech.com.precificando.precificandoback.service.RoleService;
 import br.isertech.com.precificando.precificandoback.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    RoleService roleService;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    JwtProvider jwtProvider;
-
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final JwtProvider jwtProvider;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@Valid @RequestBody UserDTO dto) {

@@ -3,7 +3,7 @@ package br.isertech.com.precificando.precificandoback.controller;
 import br.isertech.com.precificando.precificandoback.dto.RoleDTO;
 import br.isertech.com.precificando.precificandoback.entity.Role;
 import br.isertech.com.precificando.precificandoback.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,10 +14,10 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/roles")
+@RequiredArgsConstructor
 public class RoleController {
 
-    @Autowired
-    RoleService roleService;
+    private final RoleService roleService;
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping

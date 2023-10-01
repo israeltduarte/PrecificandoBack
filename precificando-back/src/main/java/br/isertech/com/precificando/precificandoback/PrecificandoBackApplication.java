@@ -26,15 +26,15 @@ public class PrecificandoBackApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        List<Role> roles = new ArrayList<>();
-
-        roles.add(Role.builder()
-                .roleName(RoleType.ROLE_USER)
-                .build());
-        roles.add(Role.builder()
-                .roleName(RoleType.ROLE_ADMIN)
-                .build());
-
-        roleRepository.saveAll(roles);
+//        List<Role> roles = new ArrayList<>();
+//
+//        roles.add(Role.builder()
+//                .roleName(RoleType.ROLE_USER)
+//                .build());
+//        roles.add(Role.builder()
+//                .roleName(RoleType.ROLE_ADMIN)
+//                .build());
+//
+//        roleRepository.saveAll(roles);
     }
 }

@@ -24,9 +24,9 @@ public class Item extends RepresentationModel<Item> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "ituser-uuid-generator")
+    @GeneratedValue(generator = "item-uuid-generator")
     @GenericGenerator(
-            name = "ituser-uuid-generator",
+            name = "item-uuid-generator",
             strategy = "br.isertech.com.precificando.precificandoback.util.IserUUIDGenerator",
             parameters = @Parameter(name = "prefix", value = "Item")
     )

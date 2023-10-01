@@ -3,6 +3,7 @@ package br.isertech.com.precificando.precificandoback.service;
 import br.isertech.com.precificando.precificandoback.constants.Messages;
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
 import br.isertech.com.precificando.precificandoback.entity.ITUser;
+import br.isertech.com.precificando.precificandoback.entity.Item;
 import br.isertech.com.precificando.precificandoback.entity.Role;
 import br.isertech.com.precificando.precificandoback.error.exception.UserNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.UserRepository;
@@ -25,6 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final ItemService itemService;
 
     public List<ITUser> getAllUsers() {
 
@@ -33,6 +35,15 @@ public class UserService {
         log.info("UserService - getAllUsers() - List<ITUser>={}", users);
 
         return users;
+    }
+
+    public List<Item> getAllUserItems(String userId) {
+
+        List<Item> items = itemService.getAllItemsByUserId(userId);
+
+        log.info("UserService - getAllUserItems() - List<Item>={}", items);
+
+        return items;
     }
 
     public ITUser addUser(UserDTO userDTO) {
@@ -120,5 +131,4 @@ public class UserService {
 
         log.info("UserService - deleteAllUsers() - ".concat(Messages.USERS_DELETED));
     }
-
 }

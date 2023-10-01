@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "user")
 public class Item extends RepresentationModel<Item> implements Serializable {
 
     @Serial
@@ -40,6 +39,7 @@ public class Item extends RepresentationModel<Item> implements Serializable {
     @ManyToOne(targetEntity = ITUser.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "USER_ID")
     @JsonIgnore
+    @ToString.Exclude
     private ITUser user;
 
 }

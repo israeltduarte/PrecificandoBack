@@ -33,6 +33,15 @@ public class ItemService {
         return items;
     }
 
+    public List<Item> getAllItemsByUserId(String userId) {
+
+        List<Item> items = itemRepository.findAllByUserId(userId);
+
+        log.info("ItemService - getAllItemsById() - List<Item>={}", items);
+
+        return items;
+    }
+
     public Item addItem(ItemDTO dto) {
 
         ITUser user = userService.getUserById(dto.getUserId());

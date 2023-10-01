@@ -2,6 +2,7 @@ package br.isertech.com.precificando.precificandoback.controller;
 
 import br.isertech.com.precificando.precificandoback.dto.UserDTO;
 import br.isertech.com.precificando.precificandoback.entity.ITUser;
+import br.isertech.com.precificando.precificandoback.entity.Item;
 import br.isertech.com.precificando.precificandoback.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -35,6 +36,19 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Item>> getAllUserItems(String userId) {
+
+        List<Item> items = userService.getAllUserItems(userId);
+        if (!items.isEmpty()) {
+            for (Item item : items) {
+                item.add(linkTo(methodOn(ItemController.class).getItemById(item.getId())).withSelfRel());
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(items);
     }
 
     @GetMapping("/{id}")

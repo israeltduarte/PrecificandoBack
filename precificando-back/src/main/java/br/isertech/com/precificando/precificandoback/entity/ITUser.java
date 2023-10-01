@@ -19,7 +19,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "roles")
 public class ITUser extends RepresentationModel<ITUser> implements Serializable {
 
     @Serial
@@ -50,8 +49,11 @@ public class ITUser extends RepresentationModel<ITUser> implements Serializable 
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     @JsonIgnore
+    @ToString.Exclude
     private List<Role> roles;
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ToString.Exclude
     private List<Item> items;
 
 }

@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @GetMapping
+    @GetMapping("/{userId/items")
     public ResponseEntity<List<Item>> getAllUserItems(String userId) {
 
         List<Item> items = userService.getAllUserItems(userId);

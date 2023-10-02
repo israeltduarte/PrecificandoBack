@@ -38,8 +38,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @GetMapping("/{userId/items")
-    public ResponseEntity<List<Item>> getAllUserItems(String userId) {
+    @GetMapping("/{userId}/items")
+    public ResponseEntity<List<Item>> getAllUserItems(@PathVariable String userId) {
 
         List<Item> items = userService.getAllUserItems(userId);
         if (!items.isEmpty()) {

@@ -19,8 +19,8 @@ import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
@@ -38,6 +38,11 @@ public class UserService {
     }
 
     public List<Item> getAllUserItems(String userId) {
+
+        ITUser user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
+
+        log.info("UserService - getAllUserItems() - ITUser={}", user);
 
         List<Item> items = itemService.getAllItemsByUserId(userId);
 

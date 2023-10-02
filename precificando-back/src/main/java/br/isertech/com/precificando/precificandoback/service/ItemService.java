@@ -5,7 +5,9 @@ import br.isertech.com.precificando.precificandoback.dto.ItemDTO;
 import br.isertech.com.precificando.precificandoback.entity.ITUser;
 import br.isertech.com.precificando.precificandoback.entity.Item;
 import br.isertech.com.precificando.precificandoback.error.exception.ItemNotFoundException;
+import br.isertech.com.precificando.precificandoback.error.exception.UserNotFoundException;
 import br.isertech.com.precificando.precificandoback.repository.ItemRepository;
+import br.isertech.com.precificando.precificandoback.repository.UserRepository;
 import br.isertech.com.precificando.precificandoback.util.ItemTransformer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +19,12 @@ import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     public List<Item> getAllItems() {
 
@@ -44,7 +46,11 @@ public class ItemService {
 
     public Item addItem(ItemDTO dto) {
 
-        ITUser user = userService.getUserById(dto.getUserId());
+        ITUser user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new UserNotFoundException(Messages.USER_NOT_FOUND_INFO));
+
+        log.info("ItemService - addItem() - ITUser={}", user);
+
         Item item = getItemEntityReady(dto, user);
         item = itemRepository.save(item);
 
